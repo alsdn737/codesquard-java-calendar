@@ -16,15 +16,16 @@ public class Calendar {
 		int[] numberArray = new int[numberOfMonth];
 		// 月を入力してください。
 
-		System.out.println("月を入力してください。");
 		for (int i = 0; i < numberOfMonth; i++) {
+			System.out.println("月を入力してください。");
+			System.out.print("cal> ");
 			number = scanner.nextInt();
-			numberArray[i] = number;
-
-		}
-		for (int i = 0; i < numberOfMonth; i++) {
-			number = numberArray[i];
-			System.out.printf("%d월은 %d일까지 있습니다. \n", number, daysOfEachMonth[number - 1]);
+			if (number != -1) {
+				numberArray[i] = number;
+				System.out.printf("%d월은 %d일까지 있습니다. \n", number, daysOfEachMonth[number - 1]);
+			} else {
+				System.out.println("Have a great day!!");
+			}
 		}
 
 		scanner.close();
