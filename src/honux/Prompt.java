@@ -1,4 +1,4 @@
-package calendar;
+package honux;
 
 import java.util.Scanner;
 
