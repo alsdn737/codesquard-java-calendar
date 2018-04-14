@@ -4,7 +4,7 @@ public class Calendar {
 
 	public static void CalendarShowing(int year, int month, String day) {
 		int[] datesOfEachMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29 };
-		if (month != -1) {
+		
 
 			System.out.printf("%d월은 %d일까지 있습니다. \n", month, datesOfEachMonth[month - 1]);
 			System.out.printf("   <%4d년%3d월 달력>   \n", year, month);
@@ -88,6 +88,7 @@ public class Calendar {
 					break;
 				}
 				System.out.println();
+				System.out.println();
 			} else {
 
 				switch (day) {
@@ -166,10 +167,8 @@ public class Calendar {
 					break;
 				}
 				System.out.println();
+				System.out.println();
 			}
-		} else {
-			System.out.println("Have a awesome day!");
-
 		}
 	}
-}
+

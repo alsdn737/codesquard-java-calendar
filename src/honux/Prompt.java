@@ -28,14 +28,18 @@ public class Prompt {
 			System.out.println("첫번째 요일을 입력하세요. (SU, MO, TU, WE, TH, FR, SA)");
 			System.out.print(DAY_PROMPT);
 			day = scanner.next();
-
-			Calendar.CalendarShowing(year, month, day);
-
-			if (month == -1) {
+			
+			if (year == -1 || month <1 || month > 12){
+				System.out.println("입력이 잘못되었습니다.");
 				break;
+			}
+			
+			else{
+				Calendar.CalendarShowing(year, month, day);
+			}
+
 			}
 		}
 
 	}
 
-}
