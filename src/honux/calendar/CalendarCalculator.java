@@ -1,6 +1,10 @@
 package honux.calendar;
 
-public class Calendar {
+import java.util.Calendar;
+
+import honux.calendar.*;
+
+public class CalendarCalculator {
 
 	public static void CalendarShowing(int year, int month, int remainder) {
 		int[] datesOfEachMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -11,7 +15,6 @@ public class Calendar {
 		
 		String space = "   ";
 
-		System.out.printf("%d월은 %d일까지 있습니다. \n", month, datesOfEachMonth[month - 1]);
 		System.out.printf("   <%4d년%3d월 달력>   \n", year, month);
 		System.out.println("  일   월   화   수   목   금   토");
 		System.out.println("----------------------");
@@ -27,7 +30,6 @@ public class Calendar {
 				System.out.print(space);
 			}
 
-			
 			
 			for (int i = 1; i <= datesOfLeapYear[month - 1]; i++) {
 
@@ -57,8 +59,9 @@ public class Calendar {
 				System.out.print(space);
 			}
 
+// Calendar.getInstance()Scheduler.scheduleRegister(stringDate);			
 			for (int i = 1; i <= datesOfEachMonth[month - 1]; i++) {
-
+				
 				System.out.printf("%3d", i);
 				if (remainder == 0) {
 					if(i == datesOfEachMonth[month -1] && i%7 == 0) {
