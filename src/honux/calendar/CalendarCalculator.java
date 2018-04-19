@@ -1,10 +1,17 @@
 package honux.calendar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import honux.calendar.*;
 
 public class CalendarCalculator {
+	static HashMap<Date, String> scheduleMap = new HashMap<Date, String>();
 
 	public static void CalendarShowing(int year, int month, int remainder) {
 		int[] datesOfEachMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -79,4 +86,6 @@ public class CalendarCalculator {
 		System.out.println();
 		System.out.println();
 	}
+	
+
 }
