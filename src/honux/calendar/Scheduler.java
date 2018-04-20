@@ -1,6 +1,12 @@
 package honux.calendar;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,12 +47,36 @@ public class Scheduler {
 		int month = Integer.parseInt(stringMonth);
 
 		int remainder = 0;
+
+		BufferedReader br = null;
+		if (new File("test.txt").exists()) {
+
+			try {
+				br = new BufferedReader(new FileReader(new File("test.txt")));
+				String buffer = "";
+
+				while ((buffer = br.readLine()) != null) {
+					System.out.println(buffer); // 한줄씩 읽어서 Print 합니다.
+				}
+			} catch (Exception e2) {
+				
+				e2.printStackTrace();
+			}
+
+			// 한줄씩 읽는 메소드가 readLine() 입니다.
+
+
+
+		}else {
+			System.out.println("아직 저장된 일정이 없습니다.");
+		}
 		Prompt.prompt(year, month, remainder);
 		topPage();
-
-	};
+		
+	}
 
 	public static void topPage() {
+
 		System.out.println("+----------------------+");
 		System.out.println("|1. 일정등록                               |");
 		System.out.println("|2. 일정검색                               |");
@@ -63,7 +93,7 @@ public class Scheduler {
 		case "1":
 			try {
 				scheduleRegister(scanner, calendar);
-			} catch (ParseException e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 
@@ -104,49 +134,80 @@ public class Scheduler {
 
 	}
 
-	public static void scheduleRegister(Scanner s, CalendarCalculator c) throws ParseException {
+	public static void scheduleRegister(Scanner s, CalendarCalculator c) throws ParseException, IOException {
 
 		// toDo를 저장해야 하는
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("test.txt"), true));
+
 		System.out.println("[새 일정 등록]");
 		System.out.println("날짜를 입력하세요. ex)1989-02-23");
 		System.out.print("> ");
 		String stringDate = s.next();
+		bw.write(stringDate);
+		bw.write(" : ");
 		String text = "";
-		System.out.println("일정을 입력하세요. 주의 : ;을 끝에 붙여주세요");
+		System.out.println("일정을 입력하세요.");
 		System.out.print("> ");
 		// parameter에 넣은 scanner가 재활용이 안 되서 Scanner 를 생성했다.
 		Scanner scanner = new Scanner(System.in);
 		text = scanner.nextLine();
-		text.endsWith(";");
-		
-	
+
 		try {
-		dateDate = new FormatSwitch(stringDate);
-		 date = dateDate.formatSwitch(stringDate);
-		 
+			dateDate = new FormatSwitch(stringDate);
+			date = dateDate.formatSwitch(stringDate);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		scheduleMap.put(date, text);
+		bw.write(text);
+		bw.newLine();
+		bw.write("");
 		System.out.println("일정이 등록되었습니다.");
+		bw.close();
 		Scheduler.topPage();
-scanner.close();
+		scanner.close();
+		
 	}
 
 	public static String scheduleSearch(String stringDate) throws ParseException {
 
 		dateDate = new FormatSwitch(stringDate);
-		 date = dateDate.formatSwitch(stringDate);
-		
-		//Unlikely argument type FormatSwitch for get(Object) on a Map<Date, String>
-		String plan = scheduleMap.get(date);  //FormatSwitch 클래스로 받은 값 date가 Date형식의 값을 가져올지 확싳치 않아서 나는 경고
+		date = dateDate.formatSwitch(stringDate);
+
+		// Unlikely argument type FormatSwitch for get(Object) on a Map<Date, String>
+		String plan = scheduleMap.get(date); // FormatSwitch 클래스로 받은 값 date가 Date형식의 값을 가져올지 확싳치 않아서 나는 경고
 		if (plan == null) {
 			System.out.println("일정이 없습니다.");
 		} else {
+			if (new File("test.txt").exists()) {
+
+				try {
+					FileReader fr = new FileReader("test.txt");
+					BufferedReader br = new BufferedReader(fr);
+					String brString = "";
+					
+					while ((br.readLine()) != null) {
+						String[] schedule = brString.split(" : ");
+						
+					//	System.out.println(buffer); // 한줄씩 읽어서 Print 합니다.
+					}
+				} catch (Exception e2) {
+					
+					e2.printStackTrace();
+				}
+
+				// 한줄씩 읽는 메소드가 readLine() 입니다.
+
+
+
+			}else {
+				System.out.println("아직 저장된 일정이 없습니다.");
+			}
+			
+			
 			System.out.println(plan);
 		}
-
-		
 
 		topPage();
 		return "";
