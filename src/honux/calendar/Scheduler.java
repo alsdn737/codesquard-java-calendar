@@ -1,7 +1,7 @@
 package honux.calendar;
 
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +29,8 @@ public class Scheduler {
 	static Scanner scanner = new Scanner(System.in);
 	static ArrayList<String> scheduleofTheDate = new ArrayList<String>();
 	static CalendarCalculator calendar;
+	static FormatSwitch dateDate;
+	static Date date;
 
 	public static void main(String[] args) {
 
@@ -62,7 +64,6 @@ public class Scheduler {
 			try {
 				scheduleRegister(scanner, calendar);
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -117,15 +118,16 @@ public class Scheduler {
 		Scanner scanner = new Scanner(System.in);
 		text = scanner.nextLine();
 		text.endsWith(";");
-		System.out.println();
 		
-		Date dateDate = null;
+	
 		try {
-			dateDate = new SimpleDateFormat("yyyy-MM-dd").parse(stringDate);
-		} catch (ParseException e) {
+		dateDate = new FormatSwitch(stringDate);
+		 date = dateDate.formatSwitch(stringDate);
+		 
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		scheduleMap.put(dateDate, text);
+		scheduleMap.put(date, text);
 		System.out.println("일정이 등록되었습니다.");
 		Scheduler.topPage();
 scanner.close();
@@ -133,15 +135,18 @@ scanner.close();
 
 	public static String scheduleSearch(String stringDate) throws ParseException {
 
-		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(stringDate);
-		String plan = scheduleMap.get(date);
+		dateDate = new FormatSwitch(stringDate);
+		 date = dateDate.formatSwitch(stringDate);
+		
+		//Unlikely argument type FormatSwitch for get(Object) on a Map<Date, String>
+		String plan = scheduleMap.get(date);  //FormatSwitch 클래스로 받은 값 date가 Date형식의 값을 가져올지 확싳치 않아서 나는 경고
 		if (plan == null) {
 			System.out.println("일정이 없습니다.");
 		} else {
-
+			System.out.println(plan);
 		}
 
-		System.out.println(plan);
+		
 
 		topPage();
 		return "";
